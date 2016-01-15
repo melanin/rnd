@@ -58,7 +58,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('ReqDeleteAllUser', function() {
-      Data.remove({}, function(err) {
+      Data.remove({}, function(__err) {
         if(__err) { console.log('[ERR] ReqDeleteAllUser(' + __err + ')'); }
         else
         {
