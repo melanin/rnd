@@ -44,7 +44,7 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('ReqDataList', function() {
         console.log('::ReqDataList');
-        ResTodoList();
+        ResDataList();
     });
 
     // socket.on('ReqDeleteList', function(__list) {
