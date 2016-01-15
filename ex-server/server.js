@@ -30,10 +30,7 @@ io.sockets.on('connection', function(socket) {
             }
             , function(__err, __todos)
             {
-                if(__err)
-                {
-                    console.log('[ERR] ReqAdd(' + __err + ')');
-                }
+                if(__err) { console.log('[ERR] ReqAdd(' + __err + ')'); }
                 else
                 {
                     ResDataList();
@@ -46,6 +43,29 @@ io.sockets.on('connection', function(socket) {
         console.log('::ReqDataList');
         ResDataList();
     });
+
+    socket.on('ReqLogin', function(__account) {
+      console.log('::ReqLogin(' + __account + ')');
+
+      Data.find({ email: __account.email, password: __account.password }, function(__err, __ret) {
+        if(__err) { console.log('[ERR] ReqLogin(' + __err + ')'); }
+        else
+        {
+          console.log('ReqLogin - ' + __ret);
+          socket.emit('ResLogin', __ret);
+        }
+      })
+    });
+
+    socket.on('ReqDeleteAllUser', function() {
+      Data.remove({}, function(err) {
+        if(__err) { console.log('[ERR] ReqDeleteAllUser(' + __err + ')'); }
+        else
+        {
+          ResDataList();
+        }
+      })
+    })
 
     // socket.on('ReqDeleteList', function(__list) {
     //     if(0 == __list.length)
@@ -86,10 +106,7 @@ io.sockets.on('connection', function(socket) {
     var ResDataList = function()
     {
         Data.find(function(__err, __data) {
-            if(__err)
-            {
-                console.log('[ERR] ResDataList(' + __err + ')');
-            }
+            if(__err) { console.log('[ERR] ResDataList(' + __err + ')'); }
             else
             {
                 // console.log(todos);
