@@ -22,7 +22,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('ReqAdd', function(__data) {
-        // console.log(__data);
+        console.log('::ReqAdd(' + __data + ')');
         Data.create(
             {
                 email: __data.email
@@ -43,6 +43,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('ReqDataList', function() {
+        console.log('::ReqDataList');
         ResTodoList();
     });
 
